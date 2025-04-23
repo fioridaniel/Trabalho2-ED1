@@ -43,10 +43,9 @@ void lerQry(ShapeBank shapebank, GcCore gccore, FILE *arqQry, FILE* arqTxtSaida,
     int vezes = 0;
     int nx = tamSt * 2;
 
-
     void* lista   = RetornaLista(gccore);
     void* gerente = RetornaGerente(gccore);
-    FILE *txt   = arqTxtSaida;
+    FILE* txt   = arqTxtSaida;
 
     for (int i = 0; i < 4; i++)
     {
@@ -55,7 +54,7 @@ void lerQry(ShapeBank shapebank, GcCore gccore, FILE *arqQry, FILE* arqTxtSaida,
 
     printf("\nPilha criada com sucesso!\n");
 
-    while (leLinha(arqQry, linha, MAX_SIZE) == true)
+    while (leLinha(arqQry, linha, MAX_SIZE))
     {
         aux[0] = '\0'; // Esvazia a variavel aux e comando a cada iteracao
         comando[0] = '\0';
@@ -111,7 +110,7 @@ void lerQry(ShapeBank shapebank, GcCore gccore, FILE *arqQry, FILE* arqTxtSaida,
                     printf("ERRO DENTRO DA FUNCAO STO ... CONDICAO NAO ENCONTRADA.\n");
                 }
 
-            DepositarNoshape(shapebank, forma, mem);
+                DepositarNoshape(shapebank, forma, mem);
             }
             else if (strcmp(comando, "push") == 0)
             {
@@ -159,8 +158,7 @@ void lerQry(ShapeBank shapebank, GcCore gccore, FILE *arqQry, FILE* arqTxtSaida,
                         }
 
                         printf("stack tipo: %c\n", tipo);
-                        CarregaRegistrador(i, int_rg);
-                        
+                        CarregaRegistrador(i, int_rg);         
                     }
                     else
                     {
@@ -568,13 +566,14 @@ void lerQry(ShapeBank shapebank, GcCore gccore, FILE *arqQry, FILE* arqTxtSaida,
         }
 
         if (cont % gc == 0) {
-        vezes++;
-        //ExecutaColeta(lista, gerente);
-        ExecutarColeta(lista, gerente);
-        //condicao para dar free nas coisas que possuiem referencia zero.
+            vezes++;
+            //ExecutaColeta(lista, gerente);
+            ExecutarColeta(lista, gerente);
+            //condicao para dar free nas coisas que possuiem referencia zero.
         }
         cont++;
     }
+
     int exec = cont / gc;
     SetNumeroExecucoes(gccore, vezes);
     printf("\nVEZES QUE O GCCORE FOI ATIVADO = %d\n", vezes);
